@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Pet Info{% endblock %}
+
+{% block content %}
+<h1>Pet Information</h1>
+
+<div>
+    <h2>{{ pet.name }}</h2>
+    <p>Species: {{ pet.species }}</p>
+    {% if pet.image_link %}
+        <img src="{{ pet.image_link }}" alt="{{ pet.name }}" width="200">
+    {% endif %}
+    {% if pet.age %}
+        <p>Age: {{ pet.age }}</p>
+    {% endif %}
+</div>
+
+<h2>Edit Pet Details</h2>
+<form method="post" action="/pets/{{ pet.id }}">
+    {{ form.hidden_tag() }}
+
+    {{ form.name.label }} {{ form.name(size=40) }}<br><br>
+    {% for error in form.name.errors %}
+        <span class="error">{{ error }}</span><br>
+    {% endfor %}
+
+    {{ form.species.label }} {{ form.species(size=40) }}<br><br>
+    {% for error in form.species.errors %}
+        <span class="error">{{ error }}</span><br>
+    {% endfor %}
+
+    {{ form.image_link.label }} {{ form.image_link(size=40) }}<br><br>
+    {% for error in form.image_link.errors %}
+        <span class="error">{{ error }}</span><br>
+    {% endfor %}
+
+    {{ form.notes.label }} {{ form.notes(size=40) }}<br><br>
+    {% for error in form.notes.errors %}
+        <span class="error">{{ error }}</span><br>
+    {% endfor %}
+
+    {{ form.available.label }} {{ form.available() }}<br><br>
+
+    <input type="submit" value="Update">
+</form>
+
+<a href="/" class="btn btn-secondary">Return to List</a>
+{% endblock %}
