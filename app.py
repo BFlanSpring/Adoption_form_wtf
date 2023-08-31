@@ -16,9 +16,6 @@ if __name__ == "__main__":
     app.run(debug=True)
 
 
-
-
-
 @app.route("/", methods=["GET"])
 def redirect_to_list():
     """Redirect to list of pets"""
@@ -50,7 +47,7 @@ def process_add_form():
         species = request.form['species']
         image_link = request.form['image_link']
         age = request.form['age']
-        available = request.form.get('available') == 'on'  # Convert to boolean
+        available = request.form.get('available') == 'on'  
         notes = request.form['notes']
 
         pet = Pets(name=name, species=species, image_link=image_link, age=age, available=available, notes=notes)
@@ -69,10 +66,10 @@ def show_pet_info(pet_id):
     if form.validate_on_submit():
         form.populate_obj(pet)
         db.session.commit()
-        print("Form submitted and database updated")  # Debugging statement
+        print("Form submitted and database updated")  
         return redirect("/")
     else:
-        print("Form validation failed:", form.errors)  # Debugging statement
+        print("Form validation failed:", form.errors) 
         return render_template("pet_info.html", pet=pet, form=form)
 
 
